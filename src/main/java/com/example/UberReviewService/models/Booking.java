@@ -15,6 +15,7 @@ public class Booking extends BaseModel{
     @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE})
     private Review review;  //one to one relation between booking and review;
 
+    @Column(name ="booking_status")
     @Enumerated(value= EnumType.STRING)
     private BookingStatus bookingstatus;
 
