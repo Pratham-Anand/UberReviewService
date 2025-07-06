@@ -5,12 +5,11 @@ import com.example.UberReviewService.models.Review;
 import com.example.UberReviewService.repositories.BookingRepository;
 import com.example.UberReviewService.repositories.DriverRepository;
 import com.example.UberReviewService.repositories.ReviewRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReviewService implements CommandLineRunner {      //command line runner tells what to do when we run the code
@@ -28,6 +27,7 @@ public class ReviewService implements CommandLineRunner {      //command line ru
     }
 
 @Override
+@Transactional
     public void run(String... args ) throws Exception{
     System.out.println("*****************");
     Review r=Review.builder()
@@ -64,13 +64,25 @@ public class ReviewService implements CommandLineRunner {      //command line ru
 
 
 //                Optional<Driver> drivers=driverRepository.rawfindByIdAndLicenseNumber(1L,"DL-09-123456");
-    Optional<Driver> drivers=driverRepository.hqlfindByIdAndLicense(1L,"DL-09-123456");
+//    Optional<Driver> drivers=driverRepository.hqlfindByIdAndLicense(1L,"DL-09-123456");
 
-    System.out.println(drivers.get().getId());
+//    System.out.println(drivers.get().getId());
 
 //    if(bo.isPresent()) {
 //        bookingRepository.delete(bo.get());
 //    }
+
+
+    List<Long> driverIds = new ArrayList<>(Arrays.asList(1L, 2L, 3L, 5L, 6L, 7L, 8L));
+    List<Driver>drivers =driverRepository.findAllByIdIn(driverIds);
+
+//    List<Booking> bookings=bookingRepository.findAllByDriverIn(drivers);  custom query to solve n+1 problem.
+
+    for(Driver driver : drivers){
+        List<Booking> bookings = driver.getBookings();
+        bookings.forEach(booking -> System.out.println(booking.getId()));
+
+    }
 
 
 }
