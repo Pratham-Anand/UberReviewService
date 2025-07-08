@@ -15,9 +15,9 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review,Long> {
 
 
-
-    @Query("select r from Booking b inner join Review r on b.review=r where b.id = :bookingId")
-    Review findReviewByBookingId(@Param("bookingId") Long bookingId);
+//
+//    @Query("select r from Booking b inner join Review r on b.review=r where b.id = :bookingId")
+//    Review findReviewByBookingId(@Param("bookingId") Long bookingId);
 
 
     List<Review> findAllByRatingIsLessThanEqual(Integer rating);

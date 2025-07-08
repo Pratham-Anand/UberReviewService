@@ -22,11 +22,16 @@ public class Review extends BaseModel {
     @Column(nullable=false)
     private String content;
 
-    private double rating;
+    private Double rating;
+
+    @OneToOne(cascade={CascadeType.ALL,CascadeType.REMOVE},fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Booking booking;  //one to one relation between booking and review;
 
     @Override
     public String toString(){
-        return "Review: " + this.content + " " + this.rating + " " + this.createdAt;
+        return "Review: " + this.content + " " + this.rating + " " + " booking: " + this.booking.getId() + " " + this.createdAt;
+
     }
 
 }

@@ -27,8 +27,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.flywaydb:flyway-core'           // Flyway core
-	implementation 'org.flywaydb:flyway-mysql'          // MySQL-specific support (needed in v10+)
+//	implementation 'org.flywaydb:flyway-core'           // Flyway core
+//	implementation 'org.flywaydb:flyway-mysql'          // MySQL-specific support (needed in v10+)
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -40,4 +40,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs += "-parameters"
 }
